@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN_Page</title>
+    <link rel="stylesheet" href="../style/signin.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</head>
+
+<body>
+    <nav>
+        <div id="index">
+            <h1><i class="material-icons">favorite</i> WeCare</h1>
+        </div>
+
+        <div id="buttons">
+            <button id="home"><i class="material-icons">home</i> Home</button>
+            <button id="admin"><i class="material-icons">admin_panel_settings</i> Login as ADMIN</button>
+            <button id="signup"><i class="material-icons">person_add</i> Create an account</button>
+        </div>
+    </nav>
+
+    <h1><i class="material-icons">medical_services</i> Welcome to Doctor's Appointment Booking</h1>
+
+    <p style="text-align: center; color: #666; margin: 20px 0;"><i class="material-icons" style="vertical-align: middle;">swipe</i> Swipe left or use arrow buttons to switch between Patient and Doctor login</p>
+
+    <div class="container">
+        <div class="swiper loginSwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="form patient">
+                        <h2><i class="material-icons">person</i> Login as Patient</h2>
+                        <form action="">
+                            <label for="patientEmail">Email</label>
+                            <input type="email" id="patientEmail" name="email" required placeholder="Enter your email">
+                            <label for="patientPassword">Password</label>
+                            <input type="password" id="patientPassword" name="password" required placeholder="Enter your password">
+                            <button type="submit"><i class="material-icons">login</i> Login</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="form doctor">
+                        <h2><i class="material-icons">local_hospital</i> Login as Doctor</h2>
+                        <form action="">
+                            <label for="doctorEmail">Email</label>
+                            <input type="email" id="doctorEmail" name="email" required placeholder="Enter your email">
+                            <label for="doctorPassword">Password</label>
+                            <input type="password" id="doctorPassword" name="password" required placeholder="Enter your password">
+                            <button type="submit"><i class="material-icons">login</i> Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+
+    <div hidden id="spinner"></div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    const swiper = new Swiper('.loginSwiper', {
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+</script>
+<script src="../js/signin.js"></script>
+</html>

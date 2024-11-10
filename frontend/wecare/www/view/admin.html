@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN_PANEL</title>
+    <link rel="stylesheet" href="../style/admin.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="mobile-nav">
+        <div id="index">
+            <i class="fas fa-heartbeat"></i>
+            <h1>WeCare</h1>
+        </div>
+        <div class="nav-title">
+            <i class="fas fa-user-shield"></i>
+            <h1>Admin Panel</h1>
+        </div>
+        <div>
+            <button id="userButton" class="user-btn">
+                <i class="fas fa-user"></i>
+                Login as User
+            </button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="forms-wrapper">
+            <div class="form adminLogin card">
+                <div class="form-header">
+                    <i class="fas fa-user-md"></i>
+                    <h2>Login as ADMIN</h2>
+                </div>
+                <form action="">
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="adminLoginEmail" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="adminLoginPassword" name="password" placeholder="Enter your password" required>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Login
+                    </button>
+                </form>
+            </div>
+
+            <div class="form admin card">
+                <div class="form-header">
+                    <i class="fas fa-user-plus"></i>
+                    <h2>REGISTER as ADMIN</h2>
+                </div>
+                <form action="" method="">
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="adminRegName" name="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="adminRegEmail" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="adminRegPassword" name="password" placeholder="Enter your password" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-image"></i>
+                        <input type="text" id="adminRegImage" name="image" placeholder="Enter image URL" required>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-user-plus"></i>
+                        Signup
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div hidden id="spinner" class="loader"></div>
+    </div>
+
+    <script src="../js/admin.js"></script>
+</body>
+</html>

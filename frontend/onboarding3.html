@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding - Step 3</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #f0f7ff 0%, #e1f5fe 100%);
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 30px;
+            background-color: white;
+            border-radius: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 450px;
+            margin: 15px;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+        .container:hover {
+            transform: translateY(-5px);
+        }
+        .icon {
+            font-size: 80px;
+            background: linear-gradient(45deg, #00796B, #009688);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 25px;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        h2 {
+            font-size: 32px;
+            background: linear-gradient(45deg, #00796B, #009688);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        p {
+            font-size: 18px;
+            color: #546E7A;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            padding: 0 15px;
+        }
+        .next-button {
+            background: linear-gradient(45deg, #00796B, #009688);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 121, 107, 0.3);
+            width: 85%;
+            max-width: 280px;
+        }
+        .next-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 121, 107, 0.4);
+        }
+        .icons-container {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .medical-icon {
+            font-size: 35px;
+            color: #00796B;
+            transition: all 0.3s;
+        }
+        .medical-icon:hover {
+            transform: scale(1.2);
+            color: #009688;
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            .icon {
+                font-size: 60px;
+            }
+            h2 {
+                font-size: 24px;
+            }
+            p {
+                font-size: 16px;
+                padding: 0 10px;
+            }
+            .medical-icon {
+                font-size: 28px;
+            }
+            .next-button {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <span class="icon material-icons">medication</span>
+        <div class="icons-container">
+            <span class="medical-icon material-icons">healing</span>
+            <span class="medical-icon material-icons">medical_services</span>
+            <span class="medical-icon material-icons">health_and_safety</span>
+            <span class="medical-icon material-icons">vaccines</span>
+        </div>
+        <h2>Welcome to Healthcare Portal</h2>
+        <p>Your trusted gateway to comprehensive healthcare management. Access your medical records securely and stay connected with your healthcare providers anytime, anywhere.</p>
+        <a href="index1.html"><button class="next-button">Get Started</button></a>
+    </div>
+</body>
+</html>

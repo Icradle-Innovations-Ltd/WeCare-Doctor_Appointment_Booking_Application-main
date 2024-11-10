@@ -1,0 +1,218 @@
+/* doctors card and container */
+
+
+.doctor-card {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    margin: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.doctor-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 8px;
+}
+
+.doctor-image {
+    width: 40%;
+    height: 40%;
+    aspect-ratio: 3/2;
+    object-fit: contain;
+}
+
+.patient-image {
+    width: 40%;
+    height: 40%;
+    aspect-ratio: 3/2;
+    object-fit: contain;
+}
+
+.doctor-card .doctor-name {
+    font-weight: bold;
+    margin-bottom: 4px;
+    font-size: 20px
+}
+
+.doctor-card .doctor-email {
+    margin-bottom: 4px;
+    font-size: 16px;
+    color: #291c1c;
+}
+
+.doctor-card .doctor-specialization {
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #2b2929;
+}
+
+.doctor-card .book-btn {
+    padding: 6px 12px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.doctor-card:hover {
+    background-color: #c8deec;
+}
+
+.doctor-card .book-btn:hover {
+    background-color: #297fb8;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    width: 80%;
+    margin: auto;
+}
+
+button {
+    padding: 8px 16px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin: 0 5px;
+}
+
+button:hover {
+    background-color: #297fb8;
+}
+
+
+button {
+    cursor: pointer;
+    font-size: 16px;
+}
+
+
+.video-btn,
+.patient-edit,
+.doctor-edit {
+    background-color: #4caf50;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.video-btn-notavailable,
+.patient-remove,
+.doctor-remove {
+    background-color: #f03919;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    margin: 0 5px;
+}
+
+.doctor-remove {
+    margin-bottom: 8px
+}
+
+.video-btn:hover {
+    background-color: #45a049;
+}
+
+.patient-card h2,
+.patient-card p {
+    text-align: center;
+}
+
+.patient-card img {
+    width: 80%;
+    height: 60%;
+    aspect-ratio: 3/2;
+    object-fit: contain;
+}
+
+.patient-remove {
+    margin-left: 180px;
+    margin-right: 15px
+}
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    background-color: rgb(238, 217, 217);
+}
+
+.navbar h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.navbar .logout-btn {
+    padding: 4px 8px;
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.navbar div {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.navbar h2 {
+    margin-right: 8px;
+    font-size: 20px;
+}
+
+body {
+    margin: 0
+}
+
+.patient-image {
+    width: 35%
+}
+
+.edit-appointment-btn,
+.cancel-appointment-btn {
+    padding: 6px 12px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 0 5px;
+}
+
+.cancel-appointment-btn {
+    background-color: #f44336;
+}
+
+body {
+    font-family: Verdana, Geneva, sans-serif;
+    background-color: #f4f4f4;
+}

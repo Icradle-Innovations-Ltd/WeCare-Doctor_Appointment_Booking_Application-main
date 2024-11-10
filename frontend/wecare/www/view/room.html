@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROOM</title>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"
+        integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 10px;
+            background-image: url('https://www.gstatic.com/meet/google_meet_marketing_ongoing_meeting_grid_427cbb32d746b1d0133b898b50115e96.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        #controls {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+        }
+
+        .control-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .control-button i {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .control-button.video i {
+            color: #4285F4;
+        }
+
+        .control-button.audio i {
+            color: #DB4437;
+        }
+
+        .control-button.end i {
+            color: #F4B400;
+        }
+
+        h1 {
+            color: #4285F4;
+            font-size: 24px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #DB4437;
+            font-size: 14px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        body {
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            #video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            video {
+                height: 40vh;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            h2 {
+                font-size: 12px;
+            }
+
+            .control-button i {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>VIDEO CHAT ROOM</h1>
+    </div>
+    <h2>Refresh ONLY if the other user has left or felt any delay in other user joining the Meet</h2>
+
+    <div id="video-grid"></div>
+
+    <div id="controls">
+        <button class="control-button video" id="toggle-video-button">
+            <i class="material-icons">videocam</i>
+            <span>Video</span>
+        </button>
+        <button class="control-button audio" id="toggle-audio-button">
+            <i class="material-icons">mic</i>
+            <span>Audio</span>
+        </button>
+        <button class="control-button end" onclick="redirectToDashboard()">
+            <i class="material-icons">exit_to_app</i>
+            <span>Exit</span>
+        </button>
+    </div>
+</body>
+
+</html>
+
+<script>
+    const socket = io("http://localhost:3000/", {
+        transports: ["websocket"]
+    });
+
+    const currentUrl = window.location.href;
+    const url = new URL(currentUrl);
+    const searchParams = new URLSearchParams(url.search);
+    const ROOM_ID = searchParams.get('roomId');
+
+    const videoGrid = document.getElementById('video-grid')
+    const myPeer = new Peer();
+    const myVideo = document.createElement('video')
+    myVideo.muted = true
+
+    const peers = {}
+
+    navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true
+    }).then(stream => {
+        addVideoStream(myVideo, stream)
+
+        myPeer.on('call', call => {
+            call.answer(stream)
+            const video = document.createElement('video')
+            call.on('stream', userVideoStream => {
+                addVideoStream(video, userVideoStream)
+            })
+        })
+
+        socket.on('user-connected', userId => {
+            connectToNewUser(userId, stream)
+        })
+
+        const toggleVideoButton = document.getElementById('toggle-video-button');
+        const videoIcon = toggleVideoButton.querySelector('i');
+        toggleVideoButton.addEventListener('click', toggleVideoStream);
+
+        function toggleVideoStream() {
+            const videoTrack = stream.getVideoTracks()[0];
+            if (videoTrack.enabled) {
+                videoTrack.enabled = false;
+                myVideo.srcObject.getVideoTracks()[0].enabled = false;
+                videoIcon.textContent = 'videocam_off';
+            } else {
+                videoTrack.enabled = true;
+                myVideo.srcObject.getVideoTracks()[0].enabled = true;
+                videoIcon.textContent = 'videocam';
+            }
+        }
+
+        const toggleAudioButton = document.getElementById('toggle-audio-button');
+        const audioIcon = toggleAudioButton.querySelector('i');
+        toggleAudioButton.addEventListener('click', toggleAudio);
+
+        function toggleAudio() {
+            const audioTrack = stream.getAudioTracks()[0];
+            if (audioTrack.enabled) {
+                audioTrack.enabled = false;
+                audioIcon.textContent = 'mic_off';
+            } else {
+                audioTrack.enabled = true;
+                audioIcon.textContent = 'mic';
+            }
+        }
+    }).catch((err) => {
+        console.log(err);
+    });
+
+    socket.on('user-disconnected', userId => {
+        if (peers[userId]) peers[userId].close()
+    })
+
+    myPeer.on('open', id => {
+        socket.emit('join-room', ROOM_ID, id)
+    })
+
+    function connectToNewUser(userId, stream) {
+        const call = myPeer.call(userId, stream)
+        const video = document.createElement('video')
+        call.on('stream', userVideoStream => {
+            addVideoStream(video, userVideoStream)
+        })
+        call.on('close', () => {
+            video.remove()
+        })
+
+        peers[userId] = call
+    }
+
+    function addVideoStream(video, stream) {
+        video.srcObject = stream
+        video.addEventListener('loadedmetadata', () => {
+            video.play()
+        })
+        videoGrid.append(video)
+    }
+
+    function redirectToDashboard() {
+        window.location.href = './patientdashboard.html';
+    }
+</script>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIDEO</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon-container {
+            margin-bottom: 2rem;
+        }
+
+        .material-icons {
+            font-size: 64px;
+            background: linear-gradient(45deg, #4285f4, #34a853, #fbbc05, #ea4335);
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        #videobutton {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background: #4285f4;
+            color: #fff;
+            border: none;
+            border-radius: 24px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        #videobutton:hover {
+            background: #1a73e8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #videobutton:active {
+            transform: translateY(0);
+        }
+
+        #spinner:not([hidden]) {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 1000;
+        }
+
+        #spinner::after {
+            content: "";
+            width: 50px;
+            height: 50px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #4285f4;
+            border-radius: 100%;
+            will-change: transform;
+            animation: spin 1s infinite linear
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            #videobutton {
+                padding: 12px 24px;
+                font-size: 16px;
+            }
+
+            .material-icons {
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="icon-container">
+            <span class="material-icons">medical_services</span>
+        </div>
+        <button id="videobutton">
+            <span class="material-icons" style="font-size: 24px;">video_call</span>
+            START VIDEO CONSULTATION
+        </button>
+    </div>
+
+    <div hidden id="spinner"></div>
+</body>
+
+</html>
+
+<script src="https://cdn.socket.io/4.6.0/socket.io.min.js"
+    integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+"
+    crossorigin="anonymous"></script>
+<script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
+
+<script>
+    const url = "http://127.0.0.1:5500/"
+    const backendURL = "http://localhost:3000/"
+
+    const socket = io(backendURL, {
+        transports: ["websocket"]  //to avoid cors
+    });
+
+    document.getElementById("videobutton").addEventListener('click', async () => {
+        spinner.removeAttribute('hidden');
+
+        try {
+            const response = await fetch(`${backendURL}video`);
+            if (!response.ok) {
+                throw new Error('Request failed');
+            }
+            else {
+                const res = await response.json();
+
+                let resp = await fetch(`${backendURL}email`, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ "email": localStorage.getItem("email"), "url": `${url}view/room.html?roomId=${res.roomId}` })
+                })
+                spinner.setAttribute('hidden', '');
+
+                alert("Doctor will receive an email with the Meeting Link")
+                window.location.href = `./room.html?roomId=${res.roomId}`;
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    });
+</script>
