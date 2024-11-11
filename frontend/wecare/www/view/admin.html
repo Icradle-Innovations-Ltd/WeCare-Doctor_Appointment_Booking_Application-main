@@ -4,26 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADMIN_PANEL</title>
+    <title>WeCare Admin</title>
     <link rel="stylesheet" href="../style/admin.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <nav class="mobile-nav">
-        <div id="index">
-            <i class="fas fa-heartbeat"></i>
+        <div id="index" class="logo-container">
+            <i class="fas fa-heartbeat medical-icon pulse-icon"></i>
             <h1>WeCare</h1>
         </div>
         <div class="nav-title">
-            <i class="fas fa-user-shield"></i>
-            <h1>Admin Panel</h1>
+            <i class="material-icons medical-icon">admin_panel_settings</i>
+            <h1>Admin Portal</h1>
         </div>
         <div>
             <button id="userButton" class="user-btn">
-                <i class="fas fa-user"></i>
-                Login as User
+                <i class="material-icons">person</i>
+                User Login
             </button>
         </div>
     </nav>
@@ -32,58 +33,65 @@
         <div class="forms-wrapper">
             <div class="form adminLogin card">
                 <div class="form-header">
-                    <i class="fas fa-user-md"></i>
-                    <h2>Login as ADMIN</h2>
+                    <div class="icon-circle">
+                        <i class="material-icons medical-icon">health_and_safety</i>
+                    </div>
+                    <h2>Admin Login</h2>
+                    <p>Access your administrative dashboard</p>
                 </div>
                 <form action="">
                     <div class="input-group">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" id="adminLoginEmail" name="email" placeholder="Enter your email" required>
+                        <i class="material-icons">email</i>
+                        <input type="email" id="adminLoginEmail" name="email" placeholder="Your email address" required>
                     </div>
                     <div class="input-group">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" id="adminLoginPassword" name="password" placeholder="Enter your password" required>
+                        <i class="material-icons">lock</i>
+                        <input type="password" id="adminLoginPassword" name="password" placeholder="Your password" required>
                     </div>
-                    <button type="submit" class="submit-btn">
-                        <i class="fas fa-sign-in-alt"></i>
-                        Login
+                    <button type="submit" class="submit-btn pulse">
+                        <i class="material-icons">login</i>
+                        Login to Dashboard
                     </button>
                 </form>
             </div>
 
             <div class="form admin card">
                 <div class="form-header">
-                    <i class="fas fa-user-plus"></i>
-                    <h2>REGISTER as ADMIN</h2>
+                    <div class="icon-circle">
+                        <i class="material-icons medical-icon">how_to_reg</i>
+                    </div>
+                    <h2>Admin Registration</h2>
+                    <p>Create your administrative account</p>
                 </div>
                 <form action="" method="">
                     <div class="input-group">
-                        <i class="fas fa-user"></i>
-                        <input type="text" id="adminRegName" name="name" placeholder="Enter your name" required>
+                        <i class="material-icons">person</i>
+                        <input type="text" id="adminRegName" name="name" placeholder="Full name" required>
                     </div>
                     <div class="input-group">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" id="adminRegEmail" name="email" placeholder="Enter your email" required>
+                        <i class="material-icons">email</i>
+                        <input type="email" id="adminRegEmail" name="email" placeholder="Email address" required>
                     </div>
                     <div class="input-group">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" id="adminRegPassword" name="password" placeholder="Enter your password" required>
+                        <i class="material-icons">lock</i>
+                        <input type="password" id="adminRegPassword" name="password" placeholder="Create password" required>
                     </div>
                     <div class="input-group">
-                        <i class="fas fa-image"></i>
-                        <input type="text" id="adminRegImage" name="image" placeholder="Enter image URL" required>
+                        <i class="material-icons">add_photo_alternate</i>
+                        <input type="text" id="adminRegImage" name="image" placeholder="Profile image URL" required>
                     </div>
-                    <button type="submit" class="submit-btn">
-                        <i class="fas fa-user-plus"></i>
-                        Signup
+                    <button type="submit" class="submit-btn pulse">
+                        <i class="material-icons">person_add</i>
+                        Create Account
                     </button>
                 </form>
             </div>
         </div>
 
-        <div hidden id="spinner" class="loader"></div>
+        <div hidden id="spinner" class="loader">
+            <div class="medical-loader"></div>
+        </div>
     </div>
-
     <script src="../js/admin.js"></script>
 </body>
 </html>
