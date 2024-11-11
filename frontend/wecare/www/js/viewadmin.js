@@ -1,4 +1,4 @@
-const backendURL = "http://localhost:3000/"
+const backendURL = "https://wecare-doctor-appointment-booking.onrender.com/"
 
 document.querySelector(".admin-name").innerHTML = "Hi " + localStorage.getItem('name')
 

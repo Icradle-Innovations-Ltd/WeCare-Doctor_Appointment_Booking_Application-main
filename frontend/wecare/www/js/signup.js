@@ -1,6 +1,6 @@
 const url = "https://pococare-assignment.vercel.app/"
 
-const backendURL = "http://localhost:3000/"
+const backendURL = "https://wecare-doctor-appointment-booking.onrender.com/"
 
 const spinner = document.getElementById("spinner");
 

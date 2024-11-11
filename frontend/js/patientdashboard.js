@@ -1,5 +1,5 @@
 const url = "http://localhost:5000/"
-const backendURL = "http://localhost:3000/"
+const backendURL = "https://wecare-doctor-appointment-booking.onrender.com/"
 
 
 if (!localStorage.getItem("token")) {

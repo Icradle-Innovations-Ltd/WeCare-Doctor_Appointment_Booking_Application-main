@@ -53,7 +53,7 @@ To try the video call feature, please register with your real email as a Doctor 
 
 ## Links
 - [Live Demo](https://wecareyou.vercel.app/)
-- [Backend API](http://localhost:3000/)
+- [Backend API](https://wecare-doctor-appointment-booking.onrender.com/)
 
 ## Screenshots
 
@@ -92,7 +92,7 @@ To try the video call feature, please register with your real email as a Doctor 
 
 ## API Endpoints
 
-Base URL: `http://localhost:3000/`
+Base URL: `https://wecare-doctor-appointment-booking.onrender.com/`
 
 | METHOD | ENDPOINT | DESCRIPTION | STATUS CODE |
 | --- | --- | --- | --- |

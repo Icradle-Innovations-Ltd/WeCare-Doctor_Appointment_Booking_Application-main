@@ -1,4 +1,4 @@
-const socket = io("http://localhost:3000/", {
+const socket = io("https://wecare-doctor-appointment-booking.onrender.com/", {
     transports: ["websocket"]  //to avoid cors
 });
 

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Dashboard</title>
     <link rel="stylesheet" href="../style/patient.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
@@ -16,7 +17,6 @@
             <button class="logout-btn">Logout</button>
         </div>
     </div>
-
 
     <div class="appointments-container">
         <h2>Upcoming Appointments</h2>
@@ -29,14 +29,10 @@
 
     <h1>Book any doctor for your Appointment</h1>
     <div class="doctors-container">
-
-
     </div>
 
     <div id="modalDiv">
-
     </div>
-
 
     <!-- this will show our spinner -->
     <div hidden id="spinner"></div>
@@ -44,4 +40,184 @@
 </body>
 
 </html>
+
 <script src="../js/patientdashboard.js"></script>
+<script>
+  const facilitiesSection = document.createElement('div');
+  facilitiesSection.classList.add('facilities-container');
+
+  const title = document.createElement('h2');
+  title.textContent = 'Healthcare Facilities in Kampala';
+  title.style.textAlign = 'center';
+  title.style.color = '#2196F3';
+  title.style.padding = '10px';
+  title.style.margin = '20px 0';
+
+  const facilitiesGrid = document.createElement('div');
+  facilitiesGrid.style.display = 'grid';
+  facilitiesGrid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(280px, 1fr))';
+  facilitiesGrid.style.gap = '15px';
+  facilitiesGrid.style.padding = '10px';
+  facilitiesGrid.style.margin = '0 auto';
+  facilitiesGrid.style.maxWidth = '1400px';
+
+  function generateFacilities(count) {
+    const facilities = {
+      hospitals: [],
+      clinics: [],
+      pharmacies: [],
+      laboratories: []
+    };
+
+    const colors = ['#F44336', '#2196F3', '#4CAF50', '#E91E63', '#FF9800', '#9C27B0', '#795548', '#00BCD4', '#8BC34A', '#FF5722', '#607D8B', '#3F51B5'];
+    const services = [
+      'Emergency Care', 'Surgery', 'Pediatrics', 'Obstetrics', 'Cardiology', 'Neurology', 'Orthopedics', 'Dermatology',
+      'Oncology', 'Psychiatry', 'Dental Care', 'Ophthalmology', 'ENT', 'Physiotherapy', 'Radiology', 'Laboratory Services',
+      'Vaccination', 'General Medicine', 'Internal Medicine', 'Rehabilitation'
+    ];
+
+    for (let i = 1; i <= count; i++) {
+      const randomServices = services.sort(() => 0.5 - Math.random()).slice(0, Math.floor(Math.random() * 5) + 3);
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      const randomDoctors = Math.floor(Math.random() * 200) + 20;
+      const randomBeds = Math.floor(Math.random() * 1000) + 100;
+
+      if (i <= count * 0.4) {
+        facilities.hospitals.push({
+          name: `Hospital ${i}`,
+          type: Math.random() > 0.3 ? 'Private' : 'Public',
+          contact: `+256 ${Math.floor(Math.random() * 900000000) + 100000000}`,
+          doctors: randomDoctors,
+          beds: randomBeds,
+          services: randomServices,
+          hours: Math.random() > 0.5 ? '24/7' : '8:00 AM - 10:00 PM',
+          icon: 'local_hospital',
+          color: randomColor
+        });
+      } else if (i <= count * 0.7) {
+        facilities.clinics.push({
+          name: `Clinic ${i}`,
+          type: 'Private',
+          contact: `+256 ${Math.floor(Math.random() * 900000000) + 100000000}`,
+          doctors: Math.floor(randomDoctors / 4),
+          services: randomServices,
+          hours: '8:00 AM - 8:00 PM',
+          icon: 'medical_services',
+          color: randomColor
+        });
+      } else if (i <= count * 0.85) {
+        facilities.pharmacies.push({
+          name: `Pharmacy ${i}`,
+          type: 'Private',
+          contact: `+256 ${Math.floor(Math.random() * 900000000) + 100000000}`,
+          services: ['Prescription Drugs', '24/7 Service', 'Home Delivery', 'Medical Supplies', 'Health Products'],
+          hours: Math.random() > 0.5 ? '24/7' : '8:00 AM - 10:00 PM',
+          icon: 'local_pharmacy',
+          color: randomColor
+        });
+      } else {
+        facilities.laboratories.push({
+          name: `Laboratory ${i}`,
+          type: 'Private',
+          contact: `+256 ${Math.floor(Math.random() * 900000000) + 100000000}`,
+          services: ['Blood Tests', 'Medical Imaging', 'Pathology', 'X-Ray', 'MRI', 'Ultrasound'],
+          hours: Math.random() > 0.5 ? '24/7' : '7:00 AM - 9:00 PM',
+          icon: 'biotech',
+          color: randomColor
+        });
+      }
+    }
+
+    return facilities;
+  }
+
+  const facilities = generateFacilities(100);
+
+  Object.entries(facilities).forEach(([category, items]) => {
+    items.forEach(facility => {
+      const facilityCard = document.createElement('div');
+      facilityCard.style.backgroundColor = '#fff';
+      facilityCard.style.borderRadius = '12px';
+      facilityCard.style.padding = '20px';
+      facilityCard.style.boxShadow = '0 3px 10px rgba(0,0,0,0.1)';
+      facilityCard.style.transition = 'transform 0.2s ease-in-out';
+      facilityCard.style.cursor = 'pointer';
+
+      facilityCard.addEventListener('mouseover', () => {
+        facilityCard.style.transform = 'translateY(-5px)';
+      });
+
+      facilityCard.addEventListener('mouseout', () => {
+        facilityCard.style.transform = 'translateY(0)';
+      });
+
+      const header = document.createElement('div');
+      header.style.display = 'flex';
+      header.style.alignItems = 'center';
+      header.style.marginBottom = '15px';
+
+      const icon = document.createElement('i');
+      icon.classList.add('material-icons');
+      icon.textContent = facility.icon;
+      icon.style.color = facility.color;
+      icon.style.fontSize = '36px';
+      icon.style.marginRight = '10px';
+
+      const name = document.createElement('h3');
+      name.textContent = facility.name;
+      name.style.margin = '0';
+      name.style.color = facility.color;
+      name.style.fontSize = '1.2rem';
+
+      header.appendChild(icon);
+      header.appendChild(name);
+
+      const type = document.createElement('p');
+      type.textContent = `Type: ${facility.type}`;
+      type.style.margin = '5px 0';
+      type.style.color = '#666';
+
+      const contact = document.createElement('p');
+      contact.textContent = `Contact: ${facility.contact}`;
+      contact.style.margin = '5px 0';
+      contact.style.color = '#666';
+
+      const hours = document.createElement('p');
+      hours.textContent = `Hours: ${facility.hours}`;
+      hours.style.margin = '5px 0';
+      hours.style.color = '#666';
+
+      const services = document.createElement('p');
+      services.textContent = `Services: ${facility.services.join(', ')}`;
+      services.style.margin = '5px 0';
+      services.style.color = '#666';
+
+      facilityCard.appendChild(header);
+      facilityCard.appendChild(type);
+      if (facility.doctors) {
+        const doctors = document.createElement('p');
+        doctors.textContent = `Doctors: ${facility.doctors}`;
+        doctors.style.margin = '5px 0';
+        doctors.style.color = '#666';
+        facilityCard.appendChild(doctors);
+      }
+      if (facility.beds) {
+        const beds = document.createElement('p');
+        beds.textContent = `Beds: ${facility.beds}`;
+        beds.style.margin = '5px 0';
+        beds.style.color = '#666';
+        facilityCard.appendChild(beds);
+      }
+      facilityCard.appendChild(contact);
+      facilityCard.appendChild(hours);
+      facilityCard.appendChild(services);
+
+      facilitiesGrid.appendChild(facilityCard);
+    });
+  });
+
+  facilitiesSection.appendChild(title);
+  facilitiesSection.appendChild(facilitiesGrid);
+
+  document.body.appendChild(facilitiesSection);
+</script>
